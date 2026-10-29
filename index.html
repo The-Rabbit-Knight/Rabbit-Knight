@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Research & Engineering Portfolio</title>
+  <style>
+    :root {
+      --peach: #FFDBBB;
+      --sky: #BADDFF;
+      --mint: #BAFFF5;
+      --slate: #496580;
+      --bg: #fffaf5;
+      --card: #ffffff;
+      --border: #BADDFF;
+      --text: #2c3e50;
+      --muted: #496580;
+      --accent: #496580;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #FFDBBB 0%, #BADDFF 55%, #BAFFF5 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+    header {
+      margin-bottom: 1.75rem;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(73, 101, 128, 0.2);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 8px 24px rgba(73, 101, 128, 0.08);
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.4rem; color: var(--slate); }
+    .subtitle { color: var(--muted); font-size: 1.02rem; max-width: 850px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .search-box {
+      width: 100%;
+      padding: 0.8rem 1.1rem;
+      border-radius: 12px;
+      border: 2px solid rgba(73, 101, 128, 0.25);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-box:focus {
+      border-color: var(--slate);
+      box-shadow: 0 0 0 3px rgba(186, 221, 255, 0.6);
+    }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--slate);
+      border: 1px solid rgba(73, 101, 128, 0.3);
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover {
+      background: var(--peach);
+      border-color: var(--slate);
+      color: var(--slate);
+    }
+    .filter-btn.active {
+      background: var(--slate);
+      color: #ffffff;
+      border-color: var(--slate);
+      font-weight: 600;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(73, 101, 128, 0.2);
+      border-radius: 14px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 6px 18px rgba(73, 101, 128, 0.07);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(73, 101, 128, 0.14);
+      border-color: var(--slate);
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--slate);
+    }
+    .badge {
+      background: var(--sky);
+      color: var(--slate);
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      font-weight: 600;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .card-meta time {
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: var(--peach);
+      color: var(--slate);
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .card h2 { font-size: 1.08rem; margin-bottom: 0.6rem; line-height: 1.38; }
+    .card h2 a { color: var(--slate); text-decoration: none; }
+    .card h2 a:hover { text-decoration: underline; }
+    .card p { color: #3b536b; font-size: 0.9rem; margin-bottom: 1.1rem; flex-grow: 1; overflow-wrap: anywhere; word-break: break-word; }
+    .card-links { display: flex; gap: 0.75rem; font-size: 0.85rem; align-items: center; }
+    .btn-primary {
+      background: var(--slate);
+      color: #ffffff;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover {
+      background: #364c61;
+    }
+    .btn-secondary {
+      background: var(--mint);
+      color: var(--slate);
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn-secondary:hover {
+      background: var(--peach);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Technical Portfolio - Rabbit Knight</h1>
+      <p class="subtitle">Published articles covering AI & Local LLMs, SIEM/DFIR & SOC Automation, Malware Reverse Engineering, Data Science in R, Microsoft 365 & Active Directory, Proxmox & Linux Virtualization, Networking, and Hardware/OS Internals.</p>
+    </header>
+    <input type="search" id="search" class="search-box" placeholder="Search articles by title, tool, or topic (e.g., Proxmox, vLLM, Velociraptor, M365, Graph, VLAN, R)...">
+    <div class="controls">
+      <button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="AI & Local LLMs">AI & Local LLMs</button><button class="filter-btn" data-filter="SIEM, DFIR & SOC Automation">SIEM, DFIR & SOC Automation</button><button class="filter-btn" data-filter="Malware Analysis & Threat Intel">Malware Analysis & Threat Intel</button><button class="filter-btn" data-filter="Data Science & R Modelling">Data Science & R Modelling</button><button class="filter-btn" data-filter="Microsoft 365 & Active Directory">Microsoft 365 & Active Directory</button><button class="filter-btn" data-filter="Proxmox, Linux & Virtualization">Proxmox, Linux & Virtualization</button><button class="filter-btn" data-filter="Networking & Traffic Analysis">Networking & Traffic Analysis</button><button class="filter-btn" data-filter="Hardware, Storage & OS Internals">Hardware, Storage & OS Internals</button>
+    </div>
+    <div class="grid" id="grid">
+      
+    <article class="card" data-category="AI & Local LLMs">
+      <div class="card-meta">
+        <span class="badge">AI & Local LLMs</span>
+        <time>2026-08-13</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-08-13-keeping-the-model-local-gpu-passthrough-and-a-rootless-vllm-conta.md" target="_blank" rel="noopener">Keeping the Model Local: GPU Passthrough and a Rootless vLLM Container on Proxmox</a></h2>
+      <p>Anyone who reads my work knows I prefer hands-on experience, so with the sheer momentum behind AI right now, diving into local models was the natural next step.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-08-13-keeping-the-model-local-gpu-passthrough-and-a-rootless-vllm-conta.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/keeping-the-model-local-gpu-passthrough-and-a-rootless-vllm-container-on-proxmox-118a2136f82f" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="SIEM, DFIR & SOC Automation">
+      <div class="card-meta">
+        <span class="badge">SIEM, DFIR & SOC Automation</span>
+        <time>2026-06-27</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-27-hunting-html-smuggling-with-velociraptor-setting-the-stage-part-1.md" target="_blank" rel="noopener">Hunting HTML Smuggling with Velociraptor: Setting the Stage. Part 1</a></h2>
+      <p>HTML smuggling is not new, but it is increasingly effective. Nobelium (APT29) used it to deliver the EnvyScout (ROOTSAW) dropper, the first link in a chain that ultimately deployed Cobalt Strike beacons during their 2021 campaigns against European governments.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-27-hunting-html-smuggling-with-velociraptor-setting-the-stage-part-1.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/hunting-html-smuggling-with-velociraptor-setting-the-stage-part-1-35268e6c1b5b" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="SIEM, DFIR & SOC Automation">
+      <div class="card-meta">
+        <span class="badge">SIEM, DFIR & SOC Automation</span>
+        <time>2026-06-27</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-27-hunting-html-smuggling-with-velociraptor-part-2-the-hunt-forensic.md" target="_blank" rel="noopener">Hunting HTML Smuggling with Velociraptor, Part 2: The Hunt — Forensic Investigation with VQL</a></h2>
+      <p>In Part 1: Hunting HTML Smuggling with Velociraptor: Setting the Stage , I built the lab, wrote an HTML smuggling attack that delivers an SVG phishing payload, and detonated it against a Windows workstation exactly the way a real victim would experience it.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-27-hunting-html-smuggling-with-velociraptor-part-2-the-hunt-forensic.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/hunting-html-smuggling-with-velociraptor-part-2-the-hunt-forensic-investigation-with-56aed2399392" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="SIEM, DFIR & SOC Automation">
+      <div class="card-meta">
+        <span class="badge">SIEM, DFIR & SOC Automation</span>
+        <time>2026-06-19</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-19-engineering-an-open-source-siem-deploying-wazuh-and-building-cust.md" target="_blank" rel="noopener">Engineering an Open-Source SIEM: Deploying Wazuh and Building Custom Detections</a></h2>
+      <p>A field report on standing up Wazuh on hardware I already own, instrumenting the first endpoint, and engineering custom detections against a live Domain Controller.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-19-engineering-an-open-source-siem-deploying-wazuh-and-building-cust.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/engineering-an-open-source-siem-deploying-wazuh-and-building-custom-detections-98041cfe4a96" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Microsoft 365 & Active Directory">
+      <div class="card-meta">
+        <span class="badge">Microsoft 365 & Active Directory</span>
+        <time>2026-06-17</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-17-surviving-a-split-brain-domain-controller-promotion.md" target="_blank" rel="noopener">Surviving a Split-Brain Domain Controller Promotion</a></h2>
+      <p>In security operations, building a realistic testing ground means rapidly changing configurations to validate different defenses.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-17-surviving-a-split-brain-domain-controller-promotion.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/surviving-a-split-brain-domain-controller-promotion-79e235259561" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Data Science & R Modelling">
+      <div class="card-meta">
+        <span class="badge">Data Science & R Modelling</span>
+        <time>2026-06-12</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-12-how-i-built-a-risk-based-insurance-pricing-model-in-r.md" target="_blank" rel="noopener">How I Built a Risk-Based Insurance Pricing Model in R</a></h2>
+      <p>A field report on the messy, satisfying work of turning four mismatched government datasets into an explainable model that actually tells a business what to do.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-12-how-i-built-a-risk-based-insurance-pricing-model-in-r.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/how-i-built-a-risk-based-insurance-pricing-model-in-r-057374c3386f" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2026-06-10</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-10-the-aura-illusion-mapping-a-fake-pdf-converter-ecosystem.md" target="_blank" rel="noopener">The Aura Illusion: Mapping a Fake PDF Converter Ecosystem</a></h2>
+      <p>Over the last few months, a pattern emerged in endpoint telemetry. Fake PDF and document-converter installers: different names, different numeric suffixes, different publishers, different branding.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-06-10-the-aura-illusion-mapping-a-fake-pdf-converter-ecosystem.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-aura-illusion-mapping-a-fake-pdf-converter-ecosystem-b61730291506" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="SIEM, DFIR & SOC Automation">
+      <div class="card-meta">
+        <span class="badge">SIEM, DFIR & SOC Automation</span>
+        <time>2026-05-17</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-05-17-from-alert-fatigue-to-action-architecting-a-hyper-automated-soc-w.md" target="_blank" rel="noopener">From Alert Fatigue to Action: Architecting a Hyper-Automated SOC Workflow</a></h2>
+      <p>I built three automation workflows for SOC over the past few months. One reports on client license usage across all managed sites.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-05-17-from-alert-fatigue-to-action-architecting-a-hyper-automated-soc-w.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/from-alert-fatigue-to-action-architecting-a-hyper-automated-soc-workflow-093f91ec49df" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2026-04-04</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-04-04-the-flipformat-illusion-the-magic-of-the-doc-convert-wizard.md" target="_blank" rel="noopener">The FlipFormat_# Illusion: The Magic of the Doc Convert Wizard</a></h2>
+      <p>Doc Convert Wizard (originating from the installer FlipFormat_947850.exe) looks like a useful document conversion tool.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-04-04-the-flipformat-illusion-the-magic-of-the-doc-convert-wizard.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-flipformat-illusion-the-magic-of-the-doc-convert-wizard-10036623d0e8" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2026-02-28</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-02-28-the-phantom-installer-deconstructing-a-net-dropper-s-fileless-exe.md" target="_blank" rel="noopener">The Phantom Installer: Deconstructing a .NET Dropper’s Fileless Execution</a></h2>
+      <p>PDFriend.exe looks like a useful PDF tool, but what started as a routine check quickly revealed a .NET dropper using fileless in-memory execution.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-02-28-the-phantom-installer-deconstructing-a-net-dropper-s-fileless-exe.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-phantom-installer-deconstructing-a-net-droppers-fileless-execution-7ec5b3bfaf8d" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2026-02-24</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-02-24-the-anatomy-of-a-trust-based-attack-tamperedchef.md" target="_blank" rel="noopener">The Anatomy of a Trust-Based Attack (TamperedChef)</a></h2>
+      <p>The “TamperedChef” campaign has redefined modern malvertising. It is not just a simple malware drop; it is a self-contained ecosystem that exploits the inherent trust placed in signed software and professional-looking utilities.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2026-02-24-the-anatomy-of-a-trust-based-attack-tamperedchef.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-anatomy-of-a-trust-based-attack-tamperedchef-fa1811c70601" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="AI & Local LLMs">
+      <div class="card-meta">
+        <span class="badge">AI & Local LLMs</span>
+        <time>2025-11-26</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-11-26-how-to-extract-virustotal-digest-for-a-list-of-file-hashes-using-.md" target="_blank" rel="noopener">How to Extract VirusTotal digest for a List of File Hashes Using AI</a></h2>
+      <p>Today I want to share a very short article about something practical. I was recently tasked with checking a long list of file hashes in VirusTotal to see whether any of them were malicious.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-11-26-how-to-extract-virustotal-digest-for-a-list-of-file-hashes-using-.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/how-to-extract-virustotal-digest-for-a-list-of-file-hashes-using-ai-b9d167a62da8" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2025-11-15</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-11-15-the-spark-or-the-smoke-looking-into-the-pdf-sparkonsoft-and-onebr.md" target="_blank" rel="noopener">The Spark or the Smoke: Looking into the PDF SparkOnSoft and OneBrowser Malware</a></h2>
+      <p>For anyone who has followed the waves of fake PDF utilities, repackaged browser add-ons, and the recycled branding of gray-market software, “Spark” has become something of a calling card.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-11-15-the-spark-or-the-smoke-looking-into-the-pdf-sparkonsoft-and-onebr.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-spark-or-the-smoke-looking-into-the-pdf-sparkonsoft-and-onebrowser-malware-3a7a19dafdba" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="SIEM, DFIR & SOC Automation">
+      <div class="card-meta">
+        <span class="badge">SIEM, DFIR & SOC Automation</span>
+        <time>2025-10-29</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-10-29-cve-2025-59287-when-wsus-turns-from-a-trusted-patch-server-into-a.md" target="_blank" rel="noopener">CVE-2025–59287: When WSUS turns from a trusted patch server into an attacker launchpad</a></h2>
+      <p>In cybersecurity, the worst-case sometimes is a simple one: a trusted internal system (the one you rely on to push updates ) is turned against you.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-10-29-cve-2025-59287-when-wsus-turns-from-a-trusted-patch-server-into-a.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/cve-2025-59287-when-wsus-turns-from-a-trusted-patch-server-into-an-attacker-launchpad-39e571745381" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2025-10-27</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-10-27-the-update-that-wasn-t-a-deep-dive-into-easy2convertupdater-exe.md" target="_blank" rel="noopener">The Update That Wasn’t: A Deep Dive into Easy2ConvertUpdater.exe</a></h2>
+      <p>In this article, I’ll dive into the analysis of Easy2ConvertUpdater.exe, a file that appeared after the process Easy2ConvertApp.exe created a scheduled task to launch it.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-10-27-the-update-that-wasn-t-a-deep-dive-into-easy2convertupdater-exe.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-update-that-wasnt-a-deep-dive-into-easy2convertupdater-exe-5d9f0407d870" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Malware Analysis & Threat Intel">
+      <div class="card-meta">
+        <span class="badge">Malware Analysis & Threat Intel</span>
+        <time>2025-09-25</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-09-25-when-your-calendar-wants-to-steal-your-tokens-a-look-at-calendaro.md" target="_blank" rel="noopener">When Your Calendar Wants to Steal Your Tokens: A Look at “Calendaromatic”</a></h2>
+      <p>Every once in a while, malware shows up wearing a costume so absurd you almost have to respect the creativity.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-09-25-when-your-calendar-wants-to-steal-your-tokens-a-look-at-calendaro.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/when-your-calendar-wants-to-steal-your-tokens-a-look-at-calendaromatic-81c15bb7ed9e" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Proxmox, Linux & Virtualization">
+      <div class="card-meta">
+        <span class="badge">Proxmox, Linux & Virtualization</span>
+        <time>2025-07-03</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-07-03-deploying-peppermint-helpdesk-on-arch-linux-a-lightweight-ticketi.md" target="_blank" rel="noopener">Deploying Peppermint Helpdesk on Arch Linux: A Lightweight Ticketing System for Your IT Lab</a></h2>
+      <p>If you’re preparing for an interview or building a proof of concept, setting up a helpdesk ticketing system using your home lab can help simulate real-world IT workflows.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-07-03-deploying-peppermint-helpdesk-on-arch-linux-a-lightweight-ticketi.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/deploying-peppermint-helpdesk-on-arch-linux-a-lightweight-ticketing-system-for-your-it-lab-8f0d4c9a2cd0" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Networking & Traffic Analysis">
+      <div class="card-meta">
+        <span class="badge">Networking & Traffic Analysis</span>
+        <time>2025-06-27</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-27-how-to-connect-two-routers-wirelessly-in-separate-networks-using-.md" target="_blank" rel="noopener">How to Connect Two Routers Wirelessly in Separate Networks Using DD-WRT Client Mode</a></h2>
+      <p>If you have two routers — one in use now (Router #1) and an old one (Router #2) running DD-WRT firmware, long forgotten in a dusty corner of your closet — you can connect Router #2 as a wireless client of Router #1.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-27-how-to-connect-two-routers-wirelessly-in-separate-networks-using-.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/how-to-connect-two-routers-wirelessly-in-separate-networks-using-dd-wrt-client-mode-a3b8821f79fa" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Networking & Traffic Analysis">
+      <div class="card-meta">
+        <span class="badge">Networking & Traffic Analysis</span>
+        <time>2025-06-21</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-21-hunting-open-ports-a-real-world-nmap-windows-investigation.md" target="_blank" rel="noopener">Hunting Open Ports: A Real-World nmap & Windows Investigation</a></h2>
+      <p>I recently dove into a small but eye-opening home lab experiment. The goal? To use basic tools like nmap to identify open ports and understand what services are running.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-21-hunting-open-ports-a-real-world-nmap-windows-investigation.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/hunting-open-ports-a-real-world-nmap-windows-investigation-e7291fe8759b" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Proxmox, Linux & Virtualization">
+      <div class="card-meta">
+        <span class="badge">Proxmox, Linux & Virtualization</span>
+        <time>2025-06-16</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-16-navigating-the-labyrinth-of-vlan-trunking-a-proxmox-and-dd-wrt-tr.md" target="_blank" rel="noopener">Navigating the Labyrinth of VLAN Trunking: A Proxmox and DD-WRT Troubleshooting Saga</a></h2>
+      <p>Networking complex IT setups with limited hardware resources can be a real head-scratcher. My recent project involved a Proxmox VM server connected to a router via a single Ethernet cable.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-16-navigating-the-labyrinth-of-vlan-trunking-a-proxmox-and-dd-wrt-tr.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/navigating-the-labyrinth-of-vlan-trunking-a-proxmox-and-dd-wrt-troubleshooting-saga-423afa66d9dc" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Proxmox, Linux & Virtualization">
+      <div class="card-meta">
+        <span class="badge">Proxmox, Linux & Virtualization</span>
+        <time>2025-06-15</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-15-how-to-enable-audio-in-proxmox-virtual-machines-using-spice-and-v.md" target="_blank" rel="noopener">How to Enable Audio in Proxmox Virtual Machines Using SPICE and Virt-Viewer (Linux)</a></h2>
+      <p>If you’re running virtual machines (VMs) on Proxmox and want them to play audio, you’re not alone.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-06-15-how-to-enable-audio-in-proxmox-virtual-machines-using-spice-and-v.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/how-to-enable-audio-in-proxmox-virtual-machines-using-spice-and-virt-viewer-linux-c4b5a499f780" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Proxmox, Linux & Virtualization">
+      <div class="card-meta">
+        <span class="badge">Proxmox, Linux & Virtualization</span>
+        <time>2025-04-22</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-04-22-beyond-homelab-under-budget-building-a-home-server-with-consumer-.md" target="_blank" rel="noopener">Beyond Homelab, Under Budget: Building a Home Server with Consumer Hardware</a></h2>
+      <p>Some folks are all about diving into IT on a budget — installing Linux, maybe even setting up a cluster with multiple nodes, connecting them to a network, and running services like a web server or Active Directory Domain.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-04-22-beyond-homelab-under-budget-building-a-home-server-with-consumer-.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/beyond-homelab-under-budget-building-a-home-server-with-consumer-hardware-a449571a10fa" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2025-04-16</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-04-16-understanding-efs-encryption-copying-and-moving-files-explained-w.md" target="_blank" rel="noopener">Understanding EFS: Encryption, Copying, and Moving Files — Explained with Candy Jars</a></h2>
+      <p>When it comes to data encryption on Windows systems, the Encrypting File System (EFS) can be a little tricky to wrap your head around — until you think of it in terms of candy.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2025-04-16-understanding-efs-encryption-copying-and-moving-files-explained-w.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/understanding-efs-encryption-copying-and-moving-files-explained-with-candy-jars-668a43155f36" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-11-18</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-11-18-diving-into-the-boot-process-how-your-computer-finds-the-os-with-.md" target="_blank" rel="noopener">Diving into the Boot Process: How Your Computer Finds the OS with MBR</a></h2>
+      <p>You know how sometimes you stumble upon a topic, and it just sticks with you? That happened to me over the weekend.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-11-18-diving-into-the-boot-process-how-your-computer-finds-the-os-with-.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/diving-into-the-boot-process-how-your-computer-finds-the-os-with-mbr-40f9ab452e30" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-11-14</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-11-14-introducing-comptia-flashcard-quiz-a-fun-way-to-boost-your-it-kno.md" target="_blank" rel="noopener">Introducing CompTIA Flashcard Quiz: A Fun Way to Boost Your IT Knowledge</a></h2>
+      <p>As someone who is passionate about IT and continually looking for ways to strengthen my knowledge, I recently created a fun and interactive CompTIA Flashcard Quiz to help me (and others) prepare for CompTIA exams.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-11-14-introducing-comptia-flashcard-quiz-a-fun-way-to-boost-your-it-kno.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/introducing-comptia-flashcard-quiz-a-fun-way-to-boost-your-it-knowledge-ee7835ee1ed8" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Microsoft 365 & Active Directory">
+      <div class="card-meta">
+        <span class="badge">Microsoft 365 & Active Directory</span>
+        <time>2024-10-18</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-10-18-understanding-microsoft-365-groups-a-guide-for-everyone.md" target="_blank" rel="noopener">Understanding Microsoft 365 Groups: A Guide for Everyone</a></h2>
+      <p>When you hear the term “Microsoft 365 Groups”, it might sound complicated, especially knowing that they exist in different admin centers across Microsoft 365 and Azure AD.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-10-18-understanding-microsoft-365-groups-a-guide-for-everyone.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/understanding-microsoft-365-groups-a-guide-for-everyone-7f2e1b548680" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Microsoft 365 & Active Directory">
+      <div class="card-meta">
+        <span class="badge">Microsoft 365 & Active Directory</span>
+        <time>2024-10-10</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-10-10-the-case-of-the-missing-group-how-microsoft-365-s-self-service-gr.md" target="_blank" rel="noopener">The Case of the Missing Group: How Microsoft 365’s Self-Service Group Management Took Me by Surprise</a></h2>
+      <p>Last week, I spotted something odd in my Azure Active Directory audit logs — a log entry I couldn’t immediately explain.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-10-10-the-case-of-the-missing-group-how-microsoft-365-s-self-service-gr.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-case-of-the-missing-group-how-microsoft-365s-self-service-group-management-took-me-by-3ebab2176aa1" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Microsoft 365 & Active Directory">
+      <div class="card-meta">
+        <span class="badge">Microsoft 365 & Active Directory</span>
+        <time>2024-09-30</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-30-the-transition-msonline-and-azuread-to-microsoft-graph.md" target="_blank" rel="noopener">The Transition: MSOnline and AzureAD to Microsoft Graph</a></h2>
+      <p>The Old Guard: MSOnline and AzureAD For years, MSOnline (Azure Active Directory PowerShell module) and AzureAD (Azure Active Directory Module for Windows PowerShell) have been the go-to tools for IT professionals managing Azure Active Directory (Azure AD).</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-30-the-transition-msonline-and-azuread-to-microsoft-graph.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-transition-msonline-and-azuread-to-microsoft-graph-4c0e80a111d0" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Microsoft 365 & Active Directory">
+      <div class="card-meta">
+        <span class="badge">Microsoft 365 & Active Directory</span>
+        <time>2024-09-24</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-24-finding-loopholes-managing-your-own-administrative-roles-in-micro.md" target="_blank" rel="noopener">Finding Loopholes: Managing Your Own Administrative Roles in Microsoft 365</a></h2>
+      <p>Every day brings new challenges for a Microsoft 365 administrator, and today is no different. As you navigate the evolving landscape of cloud management, it’s crucial to understand the structure behind Microsoft Entra (formerly Azure AD).</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-24-finding-loopholes-managing-your-own-administrative-roles-in-micro.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/finding-loopholes-managing-your-own-administrative-roles-in-microsoft-365-4529306ee9a2" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Networking & Traffic Analysis">
+      <div class="card-meta">
+        <span class="badge">Networking & Traffic Analysis</span>
+        <time>2024-09-16</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-16-what-is-my-robot-vacuum-sending-across-the-network.md" target="_blank" rel="noopener">What Is My Robot Vacuum Sending Across the Network?</a></h2>
+      <p>Have you ever wondered what your robot vacuum is transmitting across the network while you’re not watching?</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-16-what-is-my-robot-vacuum-sending-across-the-network.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/what-is-my-robot-vacuum-sending-across-the-network-bc30f327c7a9" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Microsoft 365 & Active Directory">
+      <div class="card-meta">
+        <span class="badge">Microsoft 365 & Active Directory</span>
+        <time>2024-09-10</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-10-recovering-deleted-emails-in-microsoft-365-a-powershell-approach.md" target="_blank" rel="noopener">Recovering Deleted Emails in Microsoft 365: A PowerShell Approach</a></h2>
+      <p>As an IT enthusiast and Microsoft 365 administrator, I’ve encountered my fair share of challenges.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-10-recovering-deleted-emails-in-microsoft-365-a-powershell-approach.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/recovering-deleted-emails-in-microsoft-365-a-powershell-approach-88976f0d3daf" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-09-03</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-03-the-storage-train.md" target="_blank" rel="noopener">The Storage Train</a></h2>
+      <p>Imagine our entire physical disk device as a grand train, with a powerful locomotive leading the way.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-09-03-the-storage-train.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-storage-train-b8b70b7eb9da" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-08-19</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-19-peak-vs-persistence-a-guide-to-performance-and-burn-in-testing.md" target="_blank" rel="noopener">Peak vs. Persistence: A Guide to Performance and Burn-In Testing</a></h2>
+      <p>A Performance Test is designed to measure your system’s peak capabilities. It does not assess the system’s resilience or reliability under prolonged stress.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-19-peak-vs-persistence-a-guide-to-performance-and-burn-in-testing.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/peak-vs-persistence-a-guide-to-performance-and-burn-in-testing-284cb430cce6" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-08-18</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-18-dealing-with-a-faulty-flash-drive-a-personal-experience.md" target="_blank" rel="noopener">Dealing with a Faulty Flash Drive: A Personal Experience</a></h2>
+      <p>Creating a bootable USB drive should be a straightforward task, but it can turn into a frustrating experience, especially when dealing with a faulty flash drive.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-18-dealing-with-a-faulty-flash-drive-a-personal-experience.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/dealing-with-a-faulty-flash-drive-a-personal-experience-ed6207a2efb2" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-08-12</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-12-creating-a-bootable-usb-device.md" target="_blank" rel="noopener">Creating a Bootable USB Device</a></h2>
+      <p>First, download the ISO file from your preferred Linux distribution’s official website. For this example, I’ll use the ISO file from the official Ubuntu website.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-12-creating-a-bootable-usb-device.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/creating-a-bootable-usb-device-304d2a1dac4d" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Networking & Traffic Analysis">
+      <div class="card-meta">
+        <span class="badge">Networking & Traffic Analysis</span>
+        <time>2024-08-01</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-01-a-dhcp-hotel-guide.md" target="_blank" rel="noopener">A DHCP Hotel Guide</a></h2>
+      <p>Understanding complex IT concepts can often feel like navigating a labyrinth. However, simplifying these ideas into relatable analogies makes it easier.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-08-01-a-dhcp-hotel-guide.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/a-dhcp-hotel-guide-c0f9a9f4d6f6" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-07-03</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-07-03-the-library-and-the-clerk-understanding-sram.md" target="_blank" rel="noopener">The Library and the Clerk: Understanding SRAM</a></h2>
+      <p>Imagine a sprawling library. Towering shelves crammed with books represent your computer’s main memory, called DRAM (Dynamic Random Access Memory).</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-07-03-the-library-and-the-clerk-understanding-sram.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/the-library-and-the-clerk-understanding-sram-54c2987d4a1e" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    <article class="card" data-category="Hardware, Storage & OS Internals">
+      <div class="card-meta">
+        <span class="badge">Hardware, Storage & OS Internals</span>
+        <time>2024-07-02</time>
+      </div>
+      <h2><a href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-07-02-building-a-budget-gaming-pc-a-component-breakdown.md" target="_blank" rel="noopener">Building a Budget Gaming PC: A Component Breakdown</a></h2>
+      <p>I’m excited to announce that I’m building a second PC, this time specifically for gaming! Researching parts and ensuring compatibility has been a rewarding challenge, and I’d love to share the process with you.</p>
+      <div class="card-links">
+        <a class="btn-primary" href="https://github.com/The-Rabbit-Knight/Rabbit-Knight/blob/main/articles/2024-07-02-building-a-budget-gaming-pc-a-component-breakdown.md" target="_blank" rel="noopener">Read on GitHub</a>
+        <a class="btn-secondary" href="https://medium.com/@rabbit_knight/building-a-budget-gaming-pc-a-component-breakdown-80385174f129" target="_blank" rel="noopener">Read on Medium ↗</a>
+      </div>
+    </article>
+    
+    </div>
+  </div>
+  <script>
+    const btns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+    const search = document.querySelectorAll('#search')[0];
+    let activeCat = 'all';
+    function filterCards() {
+      const q = search.value.toLowerCase();
+      cards.forEach(c => {
+        const matchCat = activeCat === 'all' || c.dataset.category === activeCat;
+        const matchText = c.innerText.toLowerCase().includes(q);
+        c.style.display = (matchCat && matchText) ? 'flex' : 'none';
+      });
+    }
+    btns.forEach(b => b.addEventListener('click', () => {
+      btns.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      activeCat = b.dataset.filter;
+      filterCards();
+    }));
+    search.addEventListener('input', filterCards);
+  </script>
+</body>
+</html>
